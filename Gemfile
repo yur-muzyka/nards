@@ -8,6 +8,7 @@ gem 'rails', '3.2.1'
 gem 'pg'
 gem 'mysql2'
 gem 'authlogic'
+gem 'taps'
 
 
 # Gems used only for assets and not required
