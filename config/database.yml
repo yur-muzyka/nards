@@ -1,3 +1,51 @@
+# MySQL.  Versions 4.1 and 5.0 are recommended.
+# 
+# Install the MYSQL driver
+#   gem install mysql2
+#
+# Ensure the MySQL gem is defined in your Gemfile
+#   gem 'mysql2'
+#
+# And be sure to use new-style password hashing:
+#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: nards_development
+  pool: 5
+  username: root
+  password: "123456"
+  host: localhost
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: nards_test
+  pool: 5
+  username: root
+  password: "123456"
+  host: localhost
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: nards_production
+  pool: 5
+  username: root
+  password: "123456"
+  host: localhost
+
+
+
+
+
+
 # PostgreSQL. Versions 8.2 and up are supported.
 #
 # Install the pg driver:
@@ -12,15 +60,15 @@
 # Configure Using Gemfile
 # gem 'pg'
 #
-development:
-  adapter: postgresql
-  encoding: unicode
-  database: d4ub5tof2gnl57
-  pool: 5
-  username: klxwoeycmjrggg
-  password: JUi--66jpawXkNEerNFzlANlWS
-  host: ec2-107-22-165-35.compute-1.amazonaws.com
-  port: 5432
+# development:
+  # adapter: postgresql
+  # encoding: unicode
+  # database: d4ub5tof2gnl57
+  # pool: 5
+  # username: klxwoeycmjrggg
+  # password: JUi--66jpawXkNEerNFzlANlWS
+  # host: ec2-107-22-165-35.compute-1.amazonaws.com
+  # port: 5432
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
@@ -34,22 +82,22 @@ development:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:
-  adapter: postgresql
-  encoding: unicode
-  database: d4ub5tof2gnl57
-  pool: 5
-  username: klxwoeycmjrggg
-  password: JUi--66jpawXkNEerNFzlANlWS
-  host: ec2-107-22-165-35.compute-1.amazonaws.com
-  port: 5432
+# test:
+  # adapter: postgresql
+  # encoding: unicode
+  # database: d4ub5tof2gnl57
+  # pool: 5
+  # username: klxwoeycmjrggg
+  # password: JUi--66jpawXkNEerNFzlANlWS
+  # host: ec2-107-22-165-35.compute-1.amazonaws.com
+  # port: 5432
 
-production:
-  adapter: postgresql
-  encoding: unicode
-  database: d4ub5tof2gnl57
-  pool: 5
-  username: klxwoeycmjrggg
-  password: JUi--66jpawXkNEerNFzlANlWS
-  host: ec2-107-22-165-35.compute-1.amazonaws.com
-  port: 5432
+# production:
+  # adapter: postgresql
+  # encoding: unicode
+  # database: d4ub5tof2gnl57
+  # pool: 5
+  # username: klxwoeycmjrggg
+  # password: JUi--66jpawXkNEerNFzlANlWS
+  # host: ec2-107-22-165-35.compute-1.amazonaws.com
+  # port: 5432
