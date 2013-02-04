@@ -6,7 +6,8 @@ gem 'rails', '3.2.1'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'mysql'
+gem 'mysql2'
+gem 'authlogic'
 
 
 # Gems used only for assets and not required
