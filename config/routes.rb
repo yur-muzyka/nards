@@ -2,7 +2,9 @@ Nards::Application.routes.draw do
   resources :users, :user_sessions
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
-
+  
+  get '/game' => 'game#index'
+  root :to => 'main#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
