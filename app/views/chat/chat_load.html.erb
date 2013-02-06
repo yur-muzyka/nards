@@ -1,0 +1,2 @@
+var chat = $("#chat_area");
+chat.append("<% @chat3.each do |p| %><%= p.user_id%>:    <%= p.text %><br><% end %>");

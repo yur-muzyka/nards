@@ -1,0 +1,25 @@
+<script type="text/javascript" src="/assets/jquery.js"></script>
+<script type="text/javascript" src="/assets/chat.js"></script>
+
+
+
+
+	<div id="chat" class="round">
+		<div id="chat_area"><!-- Сюда мы будем добавлять новые сообщения --></div>
+	</div>
+	
+	
+	
+	<div id="line" class="round">
+		<%= form_for :chat, :html => { :idn => 'chat_form' }, :url => {:controller => :chat, :action => :chat_save } do |f| %>
+			<%= f.text_field(:text, :idn => "chat_text", :class => 'text_field round') %>
+			<%= f.submit(:class => 'button round') %>			
+		<% end %>
+	</div>
+	
+	
+	
+	<div id="online" class="round">
+		users online here 
+	</div> 
+
