@@ -4,6 +4,8 @@ Nards::Application.routes.draw do
   match 'logout' => 'user_sessions#destroy', :as => :logout
   
   get '/game' => 'game#index'
+  post '/game/chat_save' => 'chat#chat_save'
+  post '/game/chat_load' => 'chat#chat_load'
   root :to => 'main#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -43,11 +43,22 @@ a.signup_button {
   padding: 20px;
 }
 
+.text_field {
+	width:90%;
+	height:30px;
+
+}
+
+.button {
+	width:9%;
+	height:30px;
+}
+
 .round {
   -moz-border-radius:    10px;
   -webkit-border-radius: 10px;
   border-radius:         10px;
-  background:oldlace;
+  background: oldlace;
 }
 
 #chat {
