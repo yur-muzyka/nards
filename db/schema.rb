@@ -16,12 +16,12 @@ ActiveRecord::Schema.define(:version => 20130205160811) do
   create_table "chats", :force => true do |t|
     t.integer  "user_id"
     t.string   "text"
-    # t.integer  "location_id"
+    t.integer  "location_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
-  # add_index "chats", ["location_id"], :name => "index_chats_on_location_id"
+  add_index "chats", ["location_id"], :name => "index_chats_on_location_id"
   add_index "chats", ["user_id"], :name => "index_chats_on_user_id"
 
   create_table "user_sessions", :force => true do |t|
