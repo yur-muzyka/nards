@@ -7,13 +7,10 @@ class ChatController < SecurityController
   end
 
   def chat_load
-    @chat3 = Chat.find(:all, :conditions => ['id > ?', params[:last]])
+    User.update_all ["active=?", Time.now], ["id=?", current_user]
+    @chat_message = Chat.find(:all, :conditions => ['id > ?', params[:last]])
+    @online_users= User.find(:all, :conditions => ['active > ?', Time.now - 15.seconds])
 
-    if @chat3.length == 0
-      render :nothing => true
-    else
-      @last_id = @chat3.last[:id]
-      render :template => 'chat/chat_load'
-    end
+    render :template => 'chat/chat_load'
   end
 end

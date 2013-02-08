@@ -1,0 +1,3 @@
+<% @last_id = @chat_message.last[:id] %>
+  var chat = $("#chat_area"); 
+chat.append("<% @chat_message.each do |p| %><b><%= p.user.username %>:</b>    <%= p.text %><br><% end %>"); last_message_id = <%= @last_id %>;

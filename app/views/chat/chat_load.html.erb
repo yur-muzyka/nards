@@ -1,2 +1,6 @@
-var chat = $("#chat_area");
-chat.append("<% @chat3.each do |p| %><b><%= p.user.username %>:</b>    <%= p.text %><br><% end %>"); last_message_id = <%= @last_id %>;
+<% if @online_users.length > 0 %>
+	<%= render :partial => 'online' %>
+<% end %>
+<% if @chat_message.length > 0 %>
+	<%= render :partial => 'messages' %>
+<% end %>
