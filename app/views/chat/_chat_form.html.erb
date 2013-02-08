@@ -1,14 +1,17 @@
 <script type="text/javascript" src="/assets/js/jquery.js"></script>
 <script type="text/javascript" src="/assets/js/chat.js"></script>
-<script type="text/javascript" src="/assets/js/mousewheel.js"></script>
-<script type="text/javascript" src="/assets/js/jscrollpane.js"></script>
-<link type="text/css" rel="stylesheet" href="assets/css/style.css"/>
+
 
 
 	<div id="messages" class="round">
-		<div id="chat_area"><!-- Сюда мы будем добавлять новые сообщения --></div>
+		<div class="chat">
+			<div class="layer">
+				<div id="chat_area"><!-- Сюда мы будем добавлять новые сообщения --></div>
+			</div>
+		</div>
 	</div>
-
+	
+	
 	<div id="line" class="round">
 		<%= form_for :chat, :html => { :idn => 'chat_form' }, :url => {:controller => :chat, :action => :chat_save } do |f| %>
 			<%= f.text_field(:text, :idn => "chat_text", :class => 'text_field round') %>
@@ -19,6 +22,21 @@
 	
 	
 	<div id="online" class="round">
-		users online here 
+		<div class="layer">users online here
+			1<br>
+			1<br>
+			1<br>
+			1<br>
+			1<br>
+			1<br>
+			1<br>
+			1<br>
+			1<br>
+			1<br>
+			1<br>
+			1<br>
+			1<br>
+			1<br>
+			</div> 
 	</div> 
 
