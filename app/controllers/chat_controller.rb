@@ -7,9 +7,9 @@ class ChatController < SecurityController
   end
 
   def chat_load
-    User.update_all ["active=?", Time.now], ["id=?", current_user]
+    User.update_all ["last_visit=?", Time.now], ["id=?", current_user]
     @chat_message = Chat.find(:all, :conditions => ['id > ?', params[:last]])
-    @online_users= User.find(:all, :conditions => ['active > ?', Time.now - 15.seconds])
+    @online_users= User.find(:all, :conditions => ['last_visit > ?', Time.now - 15.seconds])
 
     render :template => 'chat/chat_load'
   end
