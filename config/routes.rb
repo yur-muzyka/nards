@@ -2,10 +2,14 @@ Nards::Application.routes.draw do
   resources :users, :user_sessions
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
-  
-  get '/game' => 'game#index'
-  post '/game/chat_save' => 'chat#chat_save'
-  post '/game/chat_load' => 'chat#chat_load'
+
+  get '/room/:id' => 'room#index', :as => :room
+  post '/room/save' => 'room#save'
+  post '/room/join' => 'room#join'
+    
+  post '/chat/save' => 'chat#save'
+  post '/ajax/load' => 'ajax#load'
+
   root :to => 'main#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.

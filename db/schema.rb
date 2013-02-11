@@ -11,18 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130208192818) do
+ActiveRecord::Schema.define(:version => 20130211170114) do
 
   create_table "chats", :force => true do |t|
     t.integer  "user_id"
     t.string   "text"
-    t.integer  "location_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "chats", ["location_id"], :name => "index_chats_on_location_id"
   add_index "chats", ["user_id"], :name => "index_chats_on_user_id"
+
+  create_table "games", :force => true do |t|
+    t.integer  "timeout"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "locations", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "user_sessions", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -38,6 +48,8 @@ ActiveRecord::Schema.define(:version => 20130208192818) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.datetime "last_visit"
+    t.integer  "location_id"
+    t.integer  "game_id"
   end
 
 end

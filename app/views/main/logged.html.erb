@@ -1,6 +1,5 @@
-<a href="/signup" class="room1_button round">Room 1</a>
-<a href="/signup" class="room2_button round">Room 1</a>
-<a href="/signup" class="room3_button round">Room 1</a>
-
+<%= link_to @room1.name, room_path(1), :class => "room1_button round" %>
+<%= link_to @room2.name, room_path(2), :class => "room2_button round" %>
+<%= link_to @room3.name, room_path(3), :class => "room3_button round" %>
 
 	<%= render 'chat/chat_form' %>

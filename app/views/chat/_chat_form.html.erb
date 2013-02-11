@@ -12,7 +12,7 @@
 	
 	
 	<div id="line" class="round">
-		<%= form_for :chat, :html => {:id => 'send_form'}, :url => {:controller => :chat, :action => :chat_save }, :remote => true do |f| %>
+		<%= form_for :chat, :html => {:id => 'send_form'}, :url => {:controller => :chat, :action => :save }, :remote => true do |f| %>
 			<%= f.text_field(:text, :class => "text_field round") %>
 			<%= f.submit(:class => 'button round') %>			
 		<% end %>

@@ -1,13 +1,19 @@
 class MainController < ApplicationController
-  
   def index
-    @stub = current_user
-        @chat3 = Chat.find(:all)
-  @ajax_libs = "asdf-----------------------"		
+   
+    
     if current_user
-      flash[:notice] = 'Story submission succeeded'
+
+      current_user.location_id = 4
+      current_user.save
+      @room1 = Location.find(1)
+      @room2 = Location.find(2)
+      @room3 = Location.find(3)
+
       render 'logged'
+
     end
+    
   end
-  
+
 end

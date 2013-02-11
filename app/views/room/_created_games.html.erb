@@ -1,0 +1,10 @@
+<% @created_games.each do |game| %>
+<%= form_for :new_game, :html => {:id => 'new_game_form'}, :url => {:controller => :room, :action => :save }, :remote => true do |f| %>
+<%= game.users[0].username %>
+<%= f.submit("Create game") %>
+<% end %>
+
+
+
+
+<% end %>

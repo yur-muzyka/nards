@@ -1,0 +1,9 @@
+<%= form_for :new_game, :html => {:id => 'new_game_form'}, :url => {:controller => :room, :action => :save }, :remote => true do |f| %>
+timeout
+<select name="timeout">
+	<option value="1">1 min</option>
+	<option value="2">3 min</option>
+	<option value="3">5 min</option>
+</select>
+<%= f.submit("Create game") %>
+<% end %>
