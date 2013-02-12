@@ -6,6 +6,7 @@ Nards::Application.routes.draw do
   get '/room/:id' => 'room#index', :as => :room
   post '/room/save' => 'room#save'
   post '/room/join' => 'room#join'
+  post '/room/reject' => 'room#reject'
     
   post '/chat/save' => 'chat#save'
   post '/ajax/load' => 'ajax#load'

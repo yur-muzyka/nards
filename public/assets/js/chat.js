@@ -1,7 +1,7 @@
 $(document).ready(function () {
 	Load();
     $("#chat_text").focus();
-    setInterval("Load();", 2000);
+    setInterval("Load();", 10000);
 });  
 
 var last_message_id = 0;

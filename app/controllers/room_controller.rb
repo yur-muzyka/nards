@@ -11,11 +11,18 @@ class RoomController < ApplicationController
     end
     
     def join
-      
+      @game_id = params[:new_game][:game_id]
+      current_user.game_id = @game_id
+      current_user.save
+    end
+    
+    def reject
+      current_user.game = nil
+      current_user.save
     end
     
     def save
-      current_user.game = Game.new(:timeout => 3)
+      current_user.game = Game.new(:timeout => params[:timeout])
       current_user.save
       @user = current_user
     end

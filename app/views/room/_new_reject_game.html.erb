@@ -1,0 +1,17 @@
+<% if current_user.game %>
+    <%= form_for :reject_game, :url => {:controller => :room, :action => :reject }, :remote => true do |f| %>
+    <%= f.submit("reject game") %>
+    <% end %>
+<% else %>
+    <%= form_for :new_game, :url => {:controller => :room, :action => :save }, :remote => true do |f| %>
+    timeout
+    <select name="timeout">
+        <option value="1">1 min</option>
+        <option value="3">3 min</option>
+        <option value="5">5 min</option>
+    </select>
+    <%= f.submit("Create game") %>
+    <% end %>
+<% end %>
+
+
