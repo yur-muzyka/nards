@@ -6,7 +6,8 @@ class AjaxController < ApplicationController
     
 #   @created_games = Game.joins(:users).group(:game_id).having("COUNT(*) = 1")
 #   @created_games = Game.joins(:users).group("users.id").having("count(users.id) = 1")  
-    @created_games = Game.joins(:users).where("(select count(users.game_id) from users users2 where users2.game_id = games.id) = 1")
+    @lol = Game.joins(:users).where("(select count(users.game_id) from users users2 where users2.game_id = games.id) = 1")
+    @created_games = Game.find(:all)
     
     render :layout => false, :template => 'ajax/load'
   end
