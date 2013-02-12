@@ -1,4 +1,4 @@
-class RoomController < ApplicationController
+class RoomController < RedirectController
     def index
       @id = params[:id]
       
@@ -13,6 +13,8 @@ class RoomController < ApplicationController
     def join
       @game_id = params[:new_game][:game_id]
       current_user.game_id = @game_id
+      current_user.game.status = "in_progress"
+      current_user.game.save
       current_user.save
     end
     

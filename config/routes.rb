@@ -3,13 +3,15 @@ Nards::Application.routes.draw do
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
 
+  post '/chat/save' => 'chat#save'
+  post '/ajax/load' => 'ajax#load'
+  
   get '/room/:id' => 'room#index', :as => :room
   post '/room/save' => 'room#save'
   post '/room/join' => 'room#join'
   post '/room/reject' => 'room#reject'
-    
-  post '/chat/save' => 'chat#save'
-  post '/ajax/load' => 'ajax#load'
+  
+  get '/game' => 'game#index', :as => :game
 
   root :to => 'main#index'
   # The priority is based upon order of creation:

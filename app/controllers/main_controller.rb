@@ -1,4 +1,4 @@
-class MainController < ApplicationController
+class MainController < RedirectController
   def index
    
     

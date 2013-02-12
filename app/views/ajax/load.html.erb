@@ -12,3 +12,7 @@ created_games.append("<%= escape_javascript(render :partial => 'room/created_gam
 
 var created_games = $("#new_reject_area").empty();
 created_games.append("<%= escape_javascript(render :partial => 'room/new_reject_game') %>");
+
+<% if current_user.game && current_user.game.status == "in_progress" %>
+    location.reload();
+<% end %>
