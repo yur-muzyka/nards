@@ -11,8 +11,7 @@ function Load() {
     if(!load_in_process)
     {
 	    load_in_process = true; 
-
-    	$.post("ajax/load", 
+    	$.post(location.protocol + '//' + location.host + "/ajax/load", 
     	{
       	    last: last_message_id,
     	},
