@@ -1,2 +1,9 @@
-<%= debug @created_games %>
-
+<% @created_games.each do |game| %>
+    <%= form_for :new_game, :url => {:controller => :room, :action => :join}, :remote => true do |f| %>
+        <%= game.users[0].username %>
+        <%= f.hidden_field :game_id, :value => game.id %>
+        <% if current_user.game != game %>
+          <%= f.submit("join") %>
+        <% end %>
+    <% end %>
+<% end %>
