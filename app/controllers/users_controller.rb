@@ -19,12 +19,14 @@ class UsersController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @user }
     end
+    render :layout => 'main'    
   end
 
   # GET /users/new
   # GET /users/new.json
   def new
     @user = User.new
+    render :layout => 'main'
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +37,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    render :layout => 'main'
   end
 
   # POST /users

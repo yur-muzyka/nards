@@ -1,9 +1,9 @@
+<script type="text/javascript">
 $(document).ready(function () {
 	Load();
     $("#chat_text").focus();
-    setInterval("Load();", 2000);
+    setInterval("Load();", 10000);
 });  
-
 var last_message_id = 0;
 var load_in_process = false;
 
@@ -14,6 +14,9 @@ function Load() {
     	$.post(location.protocol + '//' + location.host + "/ajax/load", 
     	{
       	    last: last_message_id,
+      	    <% @ajax_options.each do |option| %>
+      	    <%= option %>: true,
+      	    <% end %>
     	},
    	    function (result) {
 			eval(result);
@@ -22,3 +25,4 @@ function Load() {
     	});
     }
 }
+</script>
