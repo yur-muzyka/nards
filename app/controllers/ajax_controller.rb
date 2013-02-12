@@ -7,6 +7,9 @@ class AjaxController < ApplicationController
   # @created_games = Game.joins(:users).group(:game_id).having("COUNT(*) = 1")
   # @created_games = Game.joins(:users).group("users.id").having("count(users.id) = 1")  
   # @created_games = Game.joins(:users).where("(select count(users.game_id) from users users2 where users2.game_id = games.id) = 1")
+
+# This (^) select query works good on the local MySQL db, but it doesn't so on heroku`s PostgreSQL. 
+# But this one (-->) works good. 
     @created_games = []
     @all_games = Game.find(:all)
     @all_games.each do |game|
@@ -14,10 +17,6 @@ class AjaxController < ApplicationController
         @created_games << game
       end
     end 
-    
-    
-    
-    
     
     render :layout => false, :template => 'ajax/load'
   end
