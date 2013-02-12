@@ -6,10 +6,9 @@
     <%= render :partial => 'chat/messages' %>
 <% end %>
 
-<% if @created_games.length > 0 %>
-    var created_games = $("#created_area").empty();
-    created_games.append("<%= escape_javascript(render :partial => 'room/created_games') %>");
-<% end %>
+
+var created_games = $("#created_area").empty();
+created_games.append("<%= escape_javascript(render :partial => 'room/created_games') %>");
 
 var created_games = $("#new_reject_area").empty();
 created_games.append("<%= escape_javascript(render :partial => 'room/new_reject_game') %>");
