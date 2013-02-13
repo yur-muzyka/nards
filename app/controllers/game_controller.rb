@@ -2,18 +2,21 @@ class GameController < ApplicationController
   before_filter :from_game_redirect
 
   def index
-   
-    if current_user
-
-      current_user.location_id = 4
+    if current_user.game.actions.count == 0
+      current_user.game.actions << Action.new(:move => "test!")
       current_user.save
-      @room1 = Location.find(1)
-      @room2 = Location.find(2)
-      @room3 = Location.find(3)
+    end
+
+    if current_user.game.actions.find(:last).turn_user_id != current_user.id
+      # stub. User wait for an opponent move
+    else
+#      @current_position= Action.get_current_position
+    end  
+
+
 
       @ajax_options = ['messages', 'online']
       render :layout => 'main', :template => 'game/logged'
-    end
   end
 
   private
