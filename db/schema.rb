@@ -11,17 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130213214251) do
+ActiveRecord::Schema.define(:version => 20130214113746) do
 
   create_table "actions", :force => true do |t|
     t.string   "move"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.integer  "turn_user_id"
-    t.integer  "dice1"
-    t.integer  "dice2"
     t.integer  "game_id"
     t.string   "condition"
+    t.integer  "dice"
   end
 
   create_table "chats", :force => true do |t|

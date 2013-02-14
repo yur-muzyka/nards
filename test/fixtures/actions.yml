@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  next_user_id: 1
+  situation: MyString
+  move: MyString
+
+two:
+  next_user_id: 1
+  situation: MyString
+  move: MyString

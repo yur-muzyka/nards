@@ -2,6 +2,8 @@ class GameController < ApplicationController
   before_filter :from_game_redirect
 
   def index
+    @last_action = current_user.game.actions.find(:last)
+    
     if current_user.game.actions.count == 0
       current_user.game.actions << Action.new(:move => "test!")
       current_user.save
@@ -10,7 +12,7 @@ class GameController < ApplicationController
     if current_user.game.actions.find(:last).turn_user_id != current_user.id
       # stub. User wait for an opponent move
     else
-#      @current_position= Action.get_current_position
+      @dice = @last_action.moves_left
     end  
 
 
