@@ -15,9 +15,11 @@ class GameController < ApplicationController
       # stub. User wait for an opponent move
     else
       # stub. Action. Move ..
-    end  
-      @dice = @last_action.flash_from_array("w")
-
+    end
+      @dice1 = @last_action.get_condition
+      @dice2 = @last_action.from_to_points("w")
+      @dice3 = @last_action.flash_from("w")
+      
       @ajax_options = ['messages', 'online']
       render :layout => 'main', :template => 'game/logged'
   end
