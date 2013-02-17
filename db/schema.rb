@@ -11,17 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214113746) do
-
-  create_table "actions", :force => true do |t|
-    t.string   "move"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.integer  "turn_user_id"
-    t.integer  "game_id"
-    t.string   "condition"
-    t.integer  "dice"
-  end
+ActiveRecord::Schema.define(:version => 20130216210157) do
 
   create_table "chats", :force => true do |t|
     t.integer  "user_id"
@@ -34,9 +24,14 @@ ActiveRecord::Schema.define(:version => 20130214113746) do
 
   create_table "games", :force => true do |t|
     t.integer  "timeout"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "status"
+    t.string   "move"
+    t.string   "condition"
+    t.integer  "dice"
+    t.integer  "first_move_id"
+    t.integer  "turn_user_id"
   end
 
   create_table "locations", :force => true do |t|

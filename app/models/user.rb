@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   belongs_to :game
   
   def player_colour
-    if id == game.actions.find(:first).turn_user_id
+    if id == game.first_move_id
       return "w"  # white
     else 
       "b"  # black

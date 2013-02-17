@@ -12,6 +12,7 @@ Nards::Application.routes.draw do
   post '/room/reject' => 'room#reject'
   
   get '/game' => 'game#index', :as => :game
+  get '/game/move' => 'game#move'
 
   root :to => 'main#index'
   # The priority is based upon order of creation:

@@ -19,3 +19,8 @@
 <% if params[:reload] && current_user.game && current_user.game.status == "in_progress" %>
     location.reload();
 <% end %>
+
+<% if params[:game] %>
+    var game = $("#game_area").empty();
+    game.append("<%= escape_javascript(render :partial => 'game/gameboard') %>");
+<% end %>
