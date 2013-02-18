@@ -178,20 +178,26 @@ class Game < ActiveRecord::Base
     all_moves.each do |k, v|
       dice_arr.each do |dice|
         if (k + dice) > 24
-          moves_from_to << [k, k + dice - 24]  
+          moves_from_to << [k, k + dice - 24]
         else
           moves_from_to << [k, k + dice]
         end
       end
     end
-    occupy_points_clean(moves_from_to.uniq, colour)
+    # check board_end
+    # checked_moves = board_end_check(moves_from_to.uniq, colour)
+    # checked_moves = moves_from_to.uniq
+    occupy_points_clean(moves_from_to, colour)
   end
   
   def occupy_points_clean(flash_array, colour)
     flash = []
     condition = get_condition
     flash_array.each_with_index do |fl, index| 
-      if condition[fl[1]] && ((condition[fl[1]][1] == colour) || (condition[fl[1]][0] == 0)) 
+      if condition[fl[1]] && ((condition[fl[1]][1] == colour) || (condition[fl[1]][0] == 0)) && 
+            (((fl[0] < fl[1]) && colour == "b") ||             # restriction to move throw the board end
+            ( (fl[0] - 12.5) < 0 && (fl[1] - 12.5) < 0    && colour == "w") ||
+            ( (fl[0] - 12.5) > 0 && (fl[1] - 12.5) > 0    && colour == "w")) 
         flash << fl
       # elsif !condition[fl[1]]
         # flash << fl
@@ -291,10 +297,10 @@ class Game < ActiveRecord::Base
   def correct_moves(moves, wrong_points)
     moves = moves.sort
     wrong_points = wrong_points.sort
-    if wrong_points[0] == moves[0] && wrong_points[1] == moves[1]
+    if (moves.count == 3 && moves[0] != moves[1]) && wrong_points[0] == moves[0] && wrong_points[1] == moves[1]
       moves.delete_at(-1)
-    elsif moves.count == 4
-      moves.delete_if {|m| m >= wrong_points.min } 
+    elsif wrong_points.count > 0
+      moves.delete_if {|m| m >= wrong_points.min }
     end
     moves
   end

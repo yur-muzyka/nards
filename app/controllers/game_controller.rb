@@ -3,8 +3,8 @@ class GameController < ApplicationController
 
   def index
 
-      @one = current_user.game.correct_moves([2,4,6,8], [6,8,2])
-      # @two = current_user.game.flash_to
+      @one = current_user.game.moves_left
+      # @two = current_user.game.board_end_check({13 => [1, "b", "f"]}, "w")
     
       @ajax_options = ['messages', 'online', 'game']
       render :layout => 'main'
