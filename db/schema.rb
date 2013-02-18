@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130216210157) do
+ActiveRecord::Schema.define(:version => 20130218005849) do
 
   create_table "chats", :force => true do |t|
     t.integer  "user_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20130216210157) do
     t.integer  "dice"
     t.integer  "first_move_id"
     t.integer  "turn_user_id"
+    t.integer  "move_count"
   end
 
   create_table "locations", :force => true do |t|

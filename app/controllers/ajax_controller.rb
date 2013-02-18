@@ -4,17 +4,18 @@ class AjaxController < ApplicationController
     @chat_message = Chat.find(:all, :conditions => ['id > ?', params[:last]])
     @online_users= User.find(:all, :conditions => ['last_visit > ?', Time.now - 15.seconds], :order => 'username')
       
- # game --     
-    if current_user.game.turn_user_id != current_user.id
-      @condition = current_user.game.get_condition
-    else
-      if current_user.game.move_pending
-        @condition = current_user.game.flash_to
+ # game --   
+    if current_user.game
+      if current_user.game.turn_user_id != current_user.id
+        @condition = current_user.game.get_condition
       else
-        @condition = current_user.game.flash_from(current_user.player_colour)
-      end     
-
-    end
+        if current_user.game.move_pending
+          @condition = current_user.game.flash_to
+        else
+          @condition = current_user.game.flash_from(current_user.player_colour)
+        end     
+      end
+    end  
     
  # end game --
  

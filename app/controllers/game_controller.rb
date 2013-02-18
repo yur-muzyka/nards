@@ -3,11 +3,8 @@ class GameController < ApplicationController
 
   def index
 
-
-            
-      @one = current_user.game.dice_left
-      @two = current_user.game.get_moves
-      @three = current_user.game.dice_left
+      @one = current_user.game.correct_moves([2,4,6,8], [6,8,2])
+      # @two = current_user.game.flash_to
     
       @ajax_options = ['messages', 'online', 'game']
       render :layout => 'main'
@@ -22,6 +19,7 @@ class GameController < ApplicationController
       current_user.game.set_condition(current_user.game.flash_from(current_user.player_colour))
       current_user.game.dice = (rand(6) + 1) *10 + rand(6) + 1
       current_user.game.move = ''
+      current_user.game.move_count = current_user.game.move_count + 1 
       current_user.game.save
 
     end

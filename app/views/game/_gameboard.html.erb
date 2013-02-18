@@ -3,11 +3,8 @@
         <td rowspan="2">
             <img src="/images/blank.png" width="43" height="789" alt=""></td>
 
-
-
-
-        <% 11.downto(6) do |k| %>
-                <td> <% if @condition[k][2] == "t" || @condition[k][0] != 0 %>
+        <% 12.downto(7) do |k| %>
+                <td> <% if @condition[k][2] == "t" || (@condition[k][2] == "f" && @condition[k][0] != 0) %>
                         <%= link_to image_tag("/images/#{@condition[k][0]}#{@condition[k][1]}d#{@condition[k][2]}.png", :width => 53, :height => 395), 
                             url_for({:controller => 'game', :action => 'move', :id => k}), :remote => true %>
                     <% elsif @condition[k][0] == 0 %>
@@ -18,58 +15,49 @@
                 </td>
             <% end %>  
 
-
-
-
         <td><img src="/images/blank.png" width="79" height="395" alt=""></td>
  
-         <% @condition.each do |k, v|
-            if k >= 6 && k <= 11 %>
-                <td> <% if v[2] == "t" || v[0] != 0 %>
-                        <%= link_to image_tag("/images/#{v[0]}#{v[1]}d#{v[2]}.png", :width => 53, :height => 395), 
+        <% 6.downto(1) do |k| %>
+                <td> <% if @condition[k][2] == "t" || (@condition[k][2] == "f" && @condition[k][0] != 0) %>
+                        <%= link_to image_tag("/images/#{@condition[k][0]}#{@condition[k][1]}d#{@condition[k][2]}.png", :width => 53, :height => 395), 
                             url_for({:controller => 'game', :action => 'move', :id => k}), :remote => true %>
-                    <% elsif v[0] == 0 %>
+                    <% elsif @condition[k][0] == 0 %>
                         <%= image_tag("/images/blank.png", :width => 53, :height => 395) %>
                     <% else %>
-                        <%= image_tag("/images/#{v[0]}#{v[1]}d#{v[2]}.png", :width => 53, :height => 395) %>
+                        <%= image_tag("/images/#{@condition[k][0]}#{@condition[k][1]}d#{@condition[k][2]}.png", :width => 53, :height => 395) %>
                     <% end %>
                 </td>
-            <% end               
-        end %>  
+            <% end %>  
  
         <td><img src="/images/blank.png" width="39" height="395" alt=""></td>
     </tr>
     <tr>
 
-        <% @condition.each do |k, v|
-            if k >= 12 && k <= 17 %>
-                <td> <% if v[2] == "t" || v[0] != 0 %>
-                        <%= link_to image_tag("/images/#{v[0]}#{v[1]}d#{v[2]}.png", :width => 53, :height => 395), 
+        <% 13.upto(18) do |k| %>
+                <td> <% if @condition[k][2] == "t" || (@condition[k][2] == "f" && @condition[k][0] != 0) %>
+                        <%= link_to image_tag("/images/#{@condition[k][0]}#{@condition[k][1]}d#{@condition[k][2]}.png", :width => 53, :height => 395), 
                             url_for({:controller => 'game', :action => 'move', :id => k}), :remote => true %>
-                    <% elsif v[0] == 0 %>
+                    <% elsif @condition[k][0] == 0 %>
                         <%= image_tag("/images/blank.png", :width => 53, :height => 395) %>
                     <% else %>
-                        <%= image_tag("/images/#{v[0]}#{v[1]}d#{v[2]}.png", :width => 53, :height => 395) %>
+                        <%= image_tag("/images/#{@condition[k][0]}#{@condition[k][1]}d#{@condition[k][2]}.png", :width => 53, :height => 395) %>
                     <% end %>
                 </td>
-            <% end               
-        end %>  
+            <% end %>  
 
         <td><img src="/images/blank.png" width="79" height="394" alt=""></td>
  
-        <% @condition.each do |k, v|
-            if k >= 18 && k <= 23 %>
-               <td> <% if v[2] == "t" || v[0] != 0 %>
-                        <%= link_to image_tag("/images/#{v[0]}#{v[1]}d#{v[2]}.png", :width => 53, :height => 395), 
+        <% 19.upto(24) do |k| %>
+                <td> <% if @condition[k][2] == "t" || (@condition[k][2] == "f" && @condition[k][0] != 0) %>
+                        <%= link_to image_tag("/images/#{@condition[k][0]}#{@condition[k][1]}d#{@condition[k][2]}.png", :width => 53, :height => 395), 
                             url_for({:controller => 'game', :action => 'move', :id => k}), :remote => true %>
-                    <% elsif v[0] == 0 %>
+                    <% elsif @condition[k][0] == 0 %>
                         <%= image_tag("/images/blank.png", :width => 53, :height => 395) %>
                     <% else %>
-                        <%= image_tag("/images/#{v[0]}#{v[1]}d#{v[2]}.png", :width => 53, :height => 395) %>
+                        <%= image_tag("/images/#{@condition[k][0]}#{@condition[k][1]}d#{@condition[k][2]}.png", :width => 53, :height => 395) %>
                     <% end %>
                 </td>
-            <% end               
-        end %>  
+            <% end %>  
 
         <td><img src="/images/blank.png" width="39" height="394" alt=""></td>
     </tr>

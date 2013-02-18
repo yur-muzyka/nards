@@ -14,7 +14,7 @@ class Game < ActiveRecord::Base
     temp_condition = condition.split('-')
     condition_hash = {}
     temp_condition.each_with_index do |point, index|
-      condition_hash = condition_hash.merge({index => [point[0..1].to_i, point[2]] })
+      condition_hash = condition_hash.merge({index + 1 => [point[0..1].to_i, point[2]] })
     end
     return condition_hash
   end
@@ -87,6 +87,9 @@ class Game < ActiveRecord::Base
     moves_done = []
     moves_array = get_moves
     moves_array.each do |move|
+      if move[1] < move[0] && move[1] != 0
+        move[1] = move[1] + 24
+      end
       moves_done << (move[1] - move[0])
     end
     moves_done
@@ -118,15 +121,24 @@ class Game < ActiveRecord::Base
     done_include = []
     
     moves_done.each do |move|
-      if move == (dice_all[0] + dice_all[1])
-        done_include << dice_all[0]
-        done_include << dice_all[1]
-      elsif move == (dice_all[0] * 3)
-        done_include << dice_all[0] << dice_all[0] << dice_all[0]
-      elsif move == (dice_all[0] * 4)
-        done_include << dice_all[0] << dice_all[0] << dice_all[0] << dice_all[0]
-      else 
-        done_include << move
+      case dice_all.count
+      when 2
+        if move == (dice_all[0] + dice_all[1])
+          done_include << dice_all[0]
+          done_include << dice_all[1]
+        else 
+          done_include << move
+        end
+      when 4        
+        if move == (dice_all[0] * 4)
+          done_include << dice_all[0] << dice_all[0] << dice_all[0] << dice_all[0]
+        elsif move == (dice_all[0] * 3)
+          done_include << dice_all[0] << dice_all[0] << dice_all[0]
+        elsif move == (dice_all[0] * 2)
+          done_include << dice_all[0] << dice_all[0]
+        else 
+          done_include << move
+        end
       end
     end
     delete_elements(dice_all, done_include)
@@ -152,7 +164,7 @@ class Game < ActiveRecord::Base
     temp_condition = get_condition
     points = {}
     temp_condition.each do |k, v|
-      if v[1] == colour
+      if v[1] == colour || v[0] == 0
         points = points.merge(k => [v[0], v[1]])
       end
     end
@@ -165,7 +177,11 @@ class Game < ActiveRecord::Base
     dice_arr = dice_left 
     all_moves.each do |k, v|
       dice_arr.each do |dice|
-        moves_from_to << [k, k + dice]
+        if (k + dice) > 24
+          moves_from_to << [k, k + dice - 24]  
+        else
+          moves_from_to << [k, k + dice]
+        end
       end
     end
     occupy_points_clean(moves_from_to.uniq, colour)
@@ -189,19 +205,65 @@ class Game < ActiveRecord::Base
     from_to_points(colour).each do |point|
       flash[point[0]][2] = "f"
     end
-    return flash
+    first_move_check(flash, colour)
+  end
+
+  def first_move_check(flash_from, colour)
+    moves = get_moves
+    
+    if move_count <= 2 && dice_possible[0] == dice_possible[1]
+      count = 0
+      moves.each do |m|
+        if m[0] == 1 && colour == "b"
+          count = count + 1
+        elsif m[0] == 13 && colour == "w"
+          count = count + 1
+        end   
+      end
+      
+      if count >= 2 && colour == "b" 
+        flash_from[1].delete("f")
+      elsif count >=2 && colour == "w"
+        flash_from[13].delete("f")
+      end
+    else
+      moves.each do |move|
+        if move[0] == 1 && colour == "b"
+          flash_from[1].delete("f")
+        elsif move[0] == 13 && colour == "w"
+          flash_from[13].delete("f")
+        end       
+      end
+    end
+    flash_from
   end
 
   def flash_to
+    wrong_points = []
     point_from = point_pending
     condition = get_new_condition
     moves = moves_left
     moves.each do |move|
-      if condition[point_from + move] && ((condition[point_from][1] == condition[point_from + move][1]) || 
-            (condition[point_from + move][0] == 0)) 
-        condition[point_from + move][2] = "t"
-      end 
-    end 
+      point_id = point_from + move              
+      if point_id > 24
+        point_id = point_id - 24
+      end   
+      if !(condition[point_id] && ((condition[point_from][1] == condition[point_id][1]) || 
+            (condition[point_id][0] == 0)))
+        wrong_points << move
+      end
+    end
+    new_moves = correct_moves(moves, wrong_points)  # forbidden jump throw occupant points 
+    new_moves.each do |m|
+      point_id = point_from + m              
+      if point_id > 24
+        point_id = point_id - 24
+      end   
+      if condition[point_id] && ((condition[point_from][1] == condition[point_id][1]) || 
+            (condition[point_id][0] == 0))
+        condition[point_id][2] = 't'    
+      end     
+    end
     condition
   end
   
@@ -211,6 +273,30 @@ class Game < ActiveRecord::Base
         return user.id
       end
     end
+  end
+  
+  def first_move_generate
+    id = rand(2)
+    case id
+    when 0
+      self.first_move_id = users.first.id
+      self.turn_user_id = users.first.id
+    when 1
+      self.first_move_id = users.last.id
+      self.turn_user_id = users.last.id
+    end
+    self.save
+  end
+  
+  def correct_moves(moves, wrong_points)
+    moves = moves.sort
+    wrong_points = wrong_points.sort
+    if wrong_points[0] == moves[0] && wrong_points[1] == moves[1]
+      moves.delete_at(-1)
+    elsif moves.count == 4
+      moves.delete_if {|m| m >= wrong_points.min } 
+    end
+    moves
   end
   
 end
