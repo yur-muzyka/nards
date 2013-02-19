@@ -59,6 +59,11 @@
                 </td>
             <% end %>  
 
-        <td><img src="/images/blank.png" width="39" height="394" alt=""></td>
+     <td> <% if @condition[25][2] == "t"%>
+        <%= image_tag("/images/#{@condition[25][0]}#{@condition[25][1]}d#{@condition[25][2]}.png", :width => 39, :height => 394) %>
+        <% elsif %>
+            <img src="/images/blank.png" width="39" height="394" alt="">
+        <% end %>
+         </td>
     </tr>
 </table>

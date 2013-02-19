@@ -10,7 +10,7 @@ class AjaxController < ApplicationController
         @condition = current_user.game.get_condition
       else
         if current_user.game.move_pending
-          @condition = current_user.game.flash_to
+          @condition = current_user.game.flash_to(current_user.player_colour)
         else
           @condition = current_user.game.flash_from(current_user.player_colour)
         end     

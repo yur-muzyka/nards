@@ -184,10 +184,7 @@ class Game < ActiveRecord::Base
         end
       end
     end
-    # check board_end
-    # checked_moves = board_end_check(moves_from_to.uniq, colour)
-    # checked_moves = moves_from_to.uniq
-    occupy_points_clean(moves_from_to, colour)
+    occupy_points_clean(moves_from_to.uniq, colour)
   end
   
   def occupy_points_clean(flash_array, colour)
@@ -199,8 +196,6 @@ class Game < ActiveRecord::Base
             ( (fl[0] - 12.5) < 0 && (fl[1] - 12.5) < 0    && colour == "w") ||
             ( (fl[0] - 12.5) > 0 && (fl[1] - 12.5) > 0    && colour == "w")) 
         flash << fl
-      # elsif !condition[fl[1]]
-        # flash << fl
       end
     end
     return flash
@@ -244,7 +239,7 @@ class Game < ActiveRecord::Base
     flash_from
   end
 
-  def flash_to
+  def flash_to(colour)
     wrong_points = []
     point_from = point_pending
     condition = get_new_condition
@@ -266,7 +261,10 @@ class Game < ActiveRecord::Base
         point_id = point_id - 24
       end   
       if condition[point_id] && ((condition[point_from][1] == condition[point_id][1]) || 
-            (condition[point_id][0] == 0))
+            (condition[point_id][0] == 0)) &&
+            ((point_from + m <= 24 && colour == "b") ||             # restriction to move throw the board end
+            ( (point_from - 12.5) < 0 && (point_from + m - 12.5) < 0    && colour == "w") ||
+            ( (point_from - 12.5) > 0 && (point_from + m - 12.5) > 0    && colour == "w")) 
         condition[point_id][2] = 't'    
       end     
     end
@@ -303,6 +301,26 @@ class Game < ActiveRecord::Base
       moves.delete_if {|m| m >= wrong_points.min }
     end
     moves
+  end
+  
+  def dom(colour)
+    condition = get_new_condition
+    colour_cond = {}
+    condition.each do |k, v|
+      if v[1] == colour && v[0] > 0
+        case colour
+        when "b"
+          if !(k >= 19 && k <= 24)
+            return false
+          end
+        when "w"
+          if !(k >=7 && k <= 12)
+            return false
+          end
+        end    
+      end
+    end
+    true
   end
   
 end

@@ -4,7 +4,7 @@ class GameController < ApplicationController
   def index
 
       @one = current_user.game.moves_left
-      # @two = current_user.game.board_end_check({13 => [1, "b", "f"]}, "w")
+      @two = current_user.game.moves_done_pending
     
       @ajax_options = ['messages', 'online', 'game']
       render :layout => 'main'
