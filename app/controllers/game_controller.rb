@@ -2,9 +2,13 @@ class GameController < ApplicationController
   before_filter :from_game_redirect
 
   def index
-
-      @one = current_user.game.moves_left
-      @two = current_user.game.moves_done_pending
+    # if current_user.game.get_moves.count > 0
+          @one = current_user.game.moves_left
+          @two = current_user.game.flash_to(current_user.player_colour)
+          # @three= current_user.game.flash_to("b")[1]
+    # end
+      
+      # @two = current_user.game.dom_from_points(current_user.game.from_to_points(current_user.player_colour))
     
       @ajax_options = ['messages', 'online', 'game']
       render :layout => 'main'
@@ -14,18 +18,27 @@ class GameController < ApplicationController
     current_user.game.add_move(params[:id])
     
     #change turn
-    if current_user.game.dice_left.count == 0 && current_user.game.get_moves.count > 0 
-      current_user.game.turn_user_id = current_user.game.opponent_id(current_user.id)
-      current_user.game.set_condition(current_user.game.flash_from(current_user.player_colour))
-      current_user.game.dice = (rand(6) + 1) *10 + rand(6) + 1
-      current_user.game.move = ''
-      current_user.game.move_count = current_user.game.move_count + 1 
-      current_user.game.save
+    
+    current_user.game.change_turn_check(current_user.player_colour, current_user.id)
 
-    end
+
+
+
+    render :layout => false
+  end
+    
+  def out_board
+    move = current_user.game.move_ident(current_user.player_colour)
+    current_user.game.add_move(move + 90)
+    current_user.game.change_turn_check(current_user.player_colour, current_user.id)
+    
+
+    
+    
     
     render :layout => false
   end
+    
   
   private
   def from_game_redirect

@@ -59,8 +59,9 @@
                 </td>
             <% end %>  
 
-     <td> <% if @condition[25][2] == "t"%>
-        <%= image_tag("/images/#{@condition[25][0]}#{@condition[25][1]}d#{@condition[25][2]}.png", :width => 39, :height => 394) %>
+     <td> <% if @out_board_moves %>
+        <%= link_to image_tag("/images/gg.png", :width => 39, :height => 394), 
+            url_for({:controller => 'game', :action => 'out_board'}), :remote => true %>
         <% elsif %>
             <img src="/images/blank.png" width="39" height="394" alt="">
         <% end %>

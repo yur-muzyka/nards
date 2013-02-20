@@ -10,10 +10,14 @@ class AjaxController < ApplicationController
         @condition = current_user.game.get_condition
       else
         if current_user.game.move_pending
-          @condition = current_user.game.flash_to(current_user.player_colour)
+          @condition = current_user.game.flash_to(current_user.player_colour)[0]
+          @out_board_moves = current_user.game.flash_to(current_user.player_colour)[1]
         else
           @condition = current_user.game.flash_from(current_user.player_colour)
-        end     
+        end
+        if current_user.game.no_moves(current_user.player_colour)
+          current_user.game.change_turn(current_user.player_colour, current_user.id)
+        end 
       end
     end  
     
