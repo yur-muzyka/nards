@@ -3,9 +3,9 @@ class GameController < ApplicationController
 
   def index
     # if current_user.game.get_moves.count > 0
-          @one = current_user.game.moves_left
-          @two = current_user.game.flash_to(current_user.player_colour)
-          # @three= current_user.game.flash_to("b")[1]
+          # @one = current_user.game.dice_left
+          # @two = current_user.game.flash_from(current_user.player_colour)
+          @three= current_user.game.flash_to(current_user.player_colour)
     # end
       
       # @two = current_user.game.dom_from_points(current_user.game.from_to_points(current_user.player_colour))

@@ -29,8 +29,8 @@ class RoomController < RedirectController
     
     def save
       current_user.game = Game.new(:timeout => params[:timeout], 
-          :condition =>  '00b-00b-00b-00b-00b-00b-00b-00b-00b-00b-00b-00b-' +
-                         '15w-00b-00b-00b-00b-00b-00b-00b-00b-15b-00b-00b-' + 
+          :condition =>  '00b-00b-00b-00b-00b-00b-02w-01w-03w-03w-03w-03w-' +
+                         '15b-00b-00b-00b-00b-00b-00b-00b-00b-00b-00b-00b-' + 
                          '00b-00b',
           :dice => (rand(6) + 1) *10 + rand(6) + 1,
           :move_count => 0,
