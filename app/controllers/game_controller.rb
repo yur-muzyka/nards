@@ -2,21 +2,18 @@ class GameController < ApplicationController
   before_filter :from_game_redirect
 
   def index
-    # if current_user.game.get_moves.count > 0
-          # @one = current_user.game.dice_left
-          # @two = current_user.game.flash_from(current_user.player_colour)
-          @three= current_user.game.flash_to(current_user.player_colour)
-    # end
-      
-      # @two = current_user.game.dom_from_points(current_user.game.from_to_points(current_user.player_colour))
+    @ajax_options = ['messages', 'online', 'game']
     
-      @ajax_options = ['messages', 'online', 'game']
+    # @one = current_user.game.make_rating.username
+    # if current_user.game.status == "game_over"
+      # render :layout => false, :text => "lol"
+    # else
       render :layout => 'main'
+    # end
   end
 
   def move
     current_user.game.add_move(params[:id])
-    
     #change turn
     
     current_user.game.change_turn_check(current_user.player_colour, current_user.id)
@@ -38,12 +35,20 @@ class GameController < ApplicationController
     
     render :layout => false
   end
+  
+  def leave_game
+    current_user.game = nil
+    current_user.save
+    redirect_to :back
+    
+    
+  end
     
   
   private
   def from_game_redirect
-          if !current_user || !current_user.game || 
-        current_user.game.status != "in_progress"
+    if !current_user || !current_user.game || current_user.game.status != "in_progress" &&
+      current_user.game.status != "game_over"
       redirect_to :root
     end
   end

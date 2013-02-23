@@ -17,6 +17,7 @@ class RoomController < RedirectController
       @game_id = params[:new_game][:game_id]
       current_user.game_id = @game_id
       current_user.game.status = "in_progress"
+      current_user.game.last_move = Time.now
       current_user.game.save
       current_user.save
       current_user.game.first_move_generate
@@ -29,11 +30,12 @@ class RoomController < RedirectController
     
     def save
       current_user.game = Game.new(:timeout => params[:timeout], 
-          :condition =>  '00b-00b-00b-00b-00b-00b-02w-01w-03w-03w-03w-03w-' +
-                         '15b-00b-00b-00b-00b-00b-00b-00b-00b-00b-00b-00b-' + 
+          :condition =>  '15b-00b-00b-00b-00b-00b-00w-00w-00w-00w-00w-00w-' +
+                         '15w-00b-00b-00b-00b-00b-00b-00b-00b-00b-00b-00b-' + 
                          '00b-00b',
           :dice => (rand(6) + 1) *10 + rand(6) + 1,
           :move_count => 0,
+          :last_move => Time.now
           )
       current_user.save
       @user = current_user

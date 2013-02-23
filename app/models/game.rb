@@ -10,6 +10,27 @@ class Game < ActiveRecord::Base
     array1
   end
   
+  def make_rating
+    user1 = users.first
+    user2 = users.last
+    winner = self.winner(user1.id, user1.player_colour)
+    if winner
+      user1.rating = user1.rating + 1
+      user2.rating = user2.rating - 1
+    else
+      user1.rating = user1.rating - 1
+      user2.rating = user2.rating + 1
+    end
+    if user1.rating < 0 
+      user1.rating = 0
+    end
+    if user2.rating < 0
+      user2.rating = 0
+    end
+    user1.save
+    user2.save
+  end
+  
   def get_condition
     temp_condition = condition.split('-')
     condition_hash = {}
@@ -74,13 +95,19 @@ class Game < ActiveRecord::Base
 
   def add_move(point)
     moves = get_moves
-    if moves.last && moves.last[1] == 0 
-      moves.last[1] = point
+    if moves.last && moves.last[1] == 0 && moves.last[0] == point.to_i
+      moves.delete_at(-1)
+    elsif moves.last && moves.last[1] == 0 
+      moves.last[1] =  point 
     else 
       moves << [point, 0]
     end
     set_moves(moves)
   end
+#   
+  # def check_cancel_move(point)
+    # point_pending 
+  # end
 
   def dice_possible
     dice_possible = []
@@ -261,7 +288,7 @@ class Game < ActiveRecord::Base
   def first_move_check(flash_from, colour)
     moves = get_moves
     
-    if move_count <= 2 && dice_possible[0] == dice_possible[1]
+    if move_count <= 2 && dice_possible[0] == dice_possible[1] && dice_possible[0] >= 4
       count = 0
       moves.each do |m|
         if m[0] == 1 && colour == "b"
@@ -318,18 +345,6 @@ class Game < ActiveRecord::Base
     if last_point_move.count > 0
       out_board_moves = true
     elsif out_moves.count > 0 && no_inner_moves(out_moves, new_moves) 
-      
-
-
-
-
-
-
-
-
-
-      
-      # new_moves.count == out_moves.count
       out_board_moves = true
     end
     
@@ -358,6 +373,7 @@ class Game < ActiveRecord::Base
       # end     
       
     end
+    condition[point_from][2] = 'f'
     return condition, out_board_moves
   end
   
@@ -431,6 +447,7 @@ class Game < ActiveRecord::Base
       self.dice = (rand(6) + 1) *10 + rand(6) + 1
       self.move = ''
       self.move_count = self.move_count + 1 
+      self.last_move = Time.now
       self.save
     end
   end
@@ -440,7 +457,8 @@ class Game < ActiveRecord::Base
       set_condition(flash_from(colour))
       self.dice = (rand(6) + 1) *10 + rand(6) + 1
       self.move = ''
-      self.move_count = self.move_count + 1 
+      self.move_count = self.move_count + 1
+      self.last_move = Time.now 
       self.save
   end
   
@@ -469,18 +487,35 @@ class Game < ActiveRecord::Base
     elsif new_moves.count == 3
       new_moves.delete_at(-1)
     end
-    
-    # case new_moves.length
-    # when 3
-      # new_moves.delete_at(-1)
-    # when 4
-      # new_moves = [new_moves[0]]
-    # end
     if delete_elements(new_moves, out_moves).count > 0
       return false
     else
       return true
     end
   end
+  
+  def time_left
+    timeout * 60 - (Time.now - last_move).to_i
+  end
+  
+  def game_over
+    self.status = 'game_over'
+    self.save
+  end
+  
+  def winner(id, colour)
+    condition = get_new_condition(colour)
+    if condition[25][0] >= 15 && self.first_move_id == id
+      return false
+    elsif condition[26][0] >= 15 && self.first_move_id != id
+      return false
+    elsif self.turn_user_id == id
+      return false
+    else
+      return true
+    end
+  end
+  
+
   
 end

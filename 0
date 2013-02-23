@@ -1,0 +1,2 @@
+      invoke  active_record
+      create    db/migrate/20130223213612_add_rating_to_user.rb

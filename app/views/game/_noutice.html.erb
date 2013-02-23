@@ -1,0 +1,20 @@
+<% if @status == "game_over"
+case @winner
+when true %>
+    you win
+    <%= link_to 'ok', url_for({:controller => 'game', :action => 'leave_game'}) %>
+<% when false %>
+    you lose
+    <%= link_to 'ok', url_for({:controller => 'game', :action => 'leave_game'}) %>
+<% end %>
+
+<% elsif @turn == @user_id %>
+    your turn<br>
+    dice: <%= @dice %>
+<div id="sample_countdown"></div>
+<% elsif @turn != @user_id %>
+    waiting for your opponent move
+<%= image_tag("/images/clock.gif") %>
+    dice: <%= @dice %>
+<div id="sample_countdown"></div>
+<% end %>

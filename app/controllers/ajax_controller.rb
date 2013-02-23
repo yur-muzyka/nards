@@ -6,7 +6,13 @@ class AjaxController < ApplicationController
       
  # game --   
     if current_user.game
-      if current_user.game.turn_user_id != current_user.id
+      @time_left = current_user.game.time_left
+      @status = current_user.game.status
+      @turn = current_user.game.turn_user_id
+      @user_id = current_user.id
+      @winner = current_user.game.winner(current_user.id, current_user.player_colour)
+      @dice = current_user.game.dice
+      if current_user.game.status == "game_over" || current_user.game.turn_user_id != current_user.id
         @condition = current_user.game.get_condition
       else
         if current_user.game.move_pending
@@ -17,7 +23,11 @@ class AjaxController < ApplicationController
         end
         if current_user.game.no_moves(current_user.player_colour)
           current_user.game.change_turn(current_user.player_colour, current_user.id)
-        end 
+        end
+        if current_user.game.time_left <= 0 || @condition[25][0] >= 15 || @condition[26][0] >= 15
+          current_user.game.make_rating
+          current_user.game.game_over
+        end
       end
     end  
     

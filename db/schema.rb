@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130218005849) do
+ActiveRecord::Schema.define(:version => 20130223213823) do
 
   create_table "chats", :force => true do |t|
     t.integer  "user_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20130218005849) do
     t.integer  "first_move_id"
     t.integer  "turn_user_id"
     t.integer  "move_count"
+    t.datetime "last_move"
   end
 
   create_table "locations", :force => true do |t|
@@ -52,11 +53,12 @@ ActiveRecord::Schema.define(:version => 20130218005849) do
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.datetime "last_visit"
     t.integer  "location_id"
     t.integer  "game_id"
+    t.integer  "rating",            :default => 0
   end
 
 end
