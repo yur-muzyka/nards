@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130223213823) do
+ActiveRecord::Schema.define(:version => 20130224203323) do
 
   create_table "chats", :force => true do |t|
     t.integer  "user_id"
     t.string   "text"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "location_id"
   end
 
   add_index "chats", ["user_id"], :name => "index_chats_on_user_id"
@@ -34,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20130223213823) do
     t.integer  "turn_user_id"
     t.integer  "move_count"
     t.datetime "last_move"
+    t.integer  "location_id"
   end
 
   create_table "locations", :force => true do |t|

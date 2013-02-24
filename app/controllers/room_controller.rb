@@ -1,6 +1,6 @@
 class RoomController < RedirectController
     def index
-      @ajax_options = ['messages', 'online', 'reload', 'created_games', 'new_reject_game']
+      @ajax_options = ['messages', 'online', 'reload', 'created_games']
 
       
       @id = params[:id]
@@ -26,6 +26,7 @@ class RoomController < RedirectController
     def reject
       current_user.game = nil
       current_user.save
+      redirect_to :back
     end
     
     def save
@@ -35,9 +36,11 @@ class RoomController < RedirectController
                          '00b-00b',
           :dice => (rand(6) + 1) *10 + rand(6) + 1,
           :move_count => 0,
-          :last_move => Time.now
+          :last_move => Time.now,
+          :location_id => current_user.location_id
           )
       current_user.save
       @user = current_user
+      redirect_to :back
     end
 end

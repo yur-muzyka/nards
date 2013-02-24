@@ -1,8 +1,25 @@
 class AjaxController < ApplicationController
   def load
     User.update_all ["last_visit=?", Time.now], ["id=?", current_user]
-    @chat_message = Chat.find(:all, :conditions => ['id > ?', params[:last]])
-    @online_users= User.find(:all, :conditions => ['last_visit > ?', Time.now - 15.seconds], :order => 'username')
+    
+    # chat --
+    if params[:last] == "0" || params[:location] != current_user.location_id.to_s
+      @last_id = Chat.find(:last).id
+      @location_id = current_user.location_id
+    else
+      @last_id = params[:last]
+      @location_id = params[:location]
+    end
+    if current_user.game && (current_user.game.status == "in_progress" || current_user.game.status == "game_over")
+      @chat_message = Chat.find(:all, :conditions => ['id > ? AND location_id = ? AND (user_id  = ? OR user_id = ?)', @last_id, 
+        current_user.location_id, current_user.game.users.first, current_user.game.users.last], :order => "id")  
+    else
+      @chat_message = Chat.find(:all, :conditions => ['id > ? AND location_id = ?', @last_id, current_user.location_id])
+    end
+    
+    
+    @online_users = User.find(:all, :conditions => ['last_visit > ? AND location_id = ?', Time.now - 15.seconds, 
+        current_user.location_id], :order => 'username')
       
  # game --   
     if current_user.game
@@ -41,12 +58,13 @@ class AjaxController < ApplicationController
 # This (^) select query works good on the local MySQL db, but it doesn't so on heroku`s PostgreSQL. 
 # But this one (-->) works good. 
     @created_games = []
-    @all_games = Game.find(:all)
+    @all_games = Game.find(:all, :conditions => ['location_id = ?', current_user.location_id])
     @all_games.each do |game|
       if game.users.length == 1
         @created_games << game
       end
     end 
+    
     
     render :layout => false, :template => 'ajax/load'
   end

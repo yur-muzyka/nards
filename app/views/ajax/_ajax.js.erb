@@ -5,6 +5,7 @@ $(document).ready(function () {
     setInterval("Load();", 2000);
 });  
 var last_message_id = 0;
+var location_id = 0;
 var load_in_process = false;
 
 function Load() {
@@ -14,6 +15,7 @@ function Load() {
     	$.post(location.protocol + '//' + location.host + "/ajax/load", 
     	{
       	    last: last_message_id,
+      	    location: location_id,
       	    <% @ajax_options.each do |option| %>
       	    <%= option %>: true,
       	    <% end %>

@@ -1,7 +1,7 @@
 class Game < ActiveRecord::Base
   has_many :users, :foreign_key => "game_id"
-  has_many :actions, :foreign_key => "game_id"
-  
+  belongs_to :location
+    
   def delete_elements(array1, array2)
     array2.each do |item|
       index = array1.index item
