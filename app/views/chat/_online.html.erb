@@ -1,2 +1,0 @@
-var online = $("#online_area").empty(); 
-online.append("<center><b>Online Users:</b> (<%= @online_users.length %>)</center><% @online_users.each do |o| %>[<i><%= o.rating %></i>]<b><%= o.username %>:<br></b> <% end %>");

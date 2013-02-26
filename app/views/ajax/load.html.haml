@@ -1,10 +1,11 @@
 - if params[:online] && @online_users.length > 0
-  = render :partial => 'chat/online'
+  var online = $("#online_area").empty();
+  online.append("#{escape_javascript(render :partial => 'chat/online')}");
 - if params[:messages]
   = render :partial => 'chat/messages'
 - if params[:created_games]
   var created_games = $("#created_area").empty();
-  created_games.append("#{escape_javascript(render :partial => 'room/created_games')}");
+  created_games.append("#{escape_javascript(render :partial => 'room/created_games.html.haml')}");
 - if params[:reload] && current_user.game && current_user.game.status == "in_progress"
   location.reload();
 - if params[:game]

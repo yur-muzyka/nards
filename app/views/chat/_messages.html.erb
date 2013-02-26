@@ -1,14 +1,9 @@
-- if @chat_message && @chat_message.count > 0
-  - @last_id = @chat_message.last[:id]
-  - @location_id = @chat_message.last[:location_id]
-var chat = $("#chat_area");
-- if @chat_message && @chat_message.count > 0
-  chat.append("
-  - @chat_message.each do |p|
-    %b
-      = p.user.username
-      \:
-    = p.text
-    %br/
-  ");
-last_message_id = #{@last_id}; location_id = #{@location_id};
+<% if @chat_message && @chat_message.count > 0 %>
+<% @last_id = @chat_message.last[:id] %>
+<% @location_id = @chat_message.last[:location_id] %>
+<% end %>
+var chat = $("#chat_area"); 
+<% if @chat_message && @chat_message.count > 0 %> 
+    chat.append("<% @chat_message.each do |p| %><b><%= p.user.username %>:</b>    <%= p.text %><br><% end %>"); 
+<% end %>
+last_message_id = <%= @last_id %>; location_id = <%= @location_id %>;
