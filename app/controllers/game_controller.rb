@@ -4,26 +4,14 @@ class GameController < ApplicationController
   def index
     current_user.location_id = 5
     current_user.save 
-      
     @ajax_options = ['messages', 'online', 'game']
-    
-    # @one = current_user.game.from_to_points("w")
-    # if current_user.game.status == "game_over"
-      # render :layout => false, :text => "lol"
-    # else
       render :layout => 'main'
-    # end
   end
 
   def move
     current_user.game.add_move(params[:id])
     #change turn
-    
     current_user.game.change_turn_check(current_user.player_colour, current_user.id)
-
-
-
-
     render :layout => false
   end
     
@@ -31,11 +19,6 @@ class GameController < ApplicationController
     move = current_user.game.move_ident(current_user.player_colour)
     current_user.game.add_move(move + 90)
     current_user.game.change_turn_check(current_user.player_colour, current_user.id)
-    
-
-    
-    
-    
     render :layout => false
   end
   
@@ -43,10 +26,7 @@ class GameController < ApplicationController
     current_user.game = nil
     current_user.save
     redirect_to :back
-    
-    
   end
-    
   
   private
   def from_game_redirect

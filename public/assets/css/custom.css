@@ -148,10 +148,9 @@ overflow: auto;
 .chat {
 margin-top: 5px;
 	height: 95%;
-	overflow: auto; /* Это позволяет отображать полусу прокрутки */
-	position: relative; /* Это позволяет съезжать тексту в слое, не растягия страницу */
+	overflow: auto;
+	position: relative;
 	text-align: left;
-/*	border: solid #818181 1px;   */
 }
 
 .chat span {

@@ -1,0 +1,11 @@
+%center
+  %b Online Users:
+  (#{@online_users.length})
+- @online_users.each do |o|
+  [
+  %i>= o.rating
+  ]
+  %b
+    = o.username
+    \:
+    %br/

@@ -1,0 +1,13 @@
+- if current_user.game
+  = form_for :reject_game, :url => {:controller => :room, :action => :reject } do |f|
+    = f.submit("reject game")
+- else
+  = form_for :new_game, :url => {:controller => :room, :action => :save } do |f|
+    timeout
+    %select{:name => "timeout"}
+      %option{:value => "1"} 1 min
+      %option{:value => "3"} 3 min
+      %option{:value => "5"} 5 min
+    = f.submit("Create game")
+
+

@@ -1,17 +1,10 @@
 class RoomController < RedirectController
     def index
-      
       @ajax_options = ['messages', 'online', 'reload', 'created_games']
-
-
-      
       @id = params[:id]
-      
       current_user.location_id = @id
       current_user.save 
-      
       @room = current_user.location.name
-      
       render :layout => "main"
     end
     

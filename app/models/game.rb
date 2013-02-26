@@ -104,10 +104,6 @@ class Game < ActiveRecord::Base
     end
     set_moves(moves)
   end
-#   
-  # def check_cancel_move(point)
-    # point_pending 
-  # end
 
   def dice_possible
     dice_possible = []
@@ -155,7 +151,7 @@ class Game < ActiveRecord::Base
   
   def dice_left
     dice_all= dice_possible
-    moves_done = self.moves_done   # исправить 99
+    moves_done = self.moves_done  
     done_include = []
     
     moves_done.each do |move|
@@ -205,7 +201,7 @@ class Game < ActiveRecord::Base
       if k == 25
         break
       end
-      if v[1] == colour || v[0] == 0      # правил. надо потестить
+      if v[1] == colour || v[0] == 0 
         points = points.merge(k => [v[0], v[1]])
       end
     end
@@ -232,9 +228,9 @@ class Game < ActiveRecord::Base
     flash = []
     condition = get_condition
     flash_array.each_with_index do |fl, index|
-      if condition[fl[1]] && ((condition[fl[1]][1] == colour) || (condition[fl[1]][0] == 0) ||    # test string -> testing..
+      if condition[fl[1]] && ((condition[fl[1]][1] == colour) || (condition[fl[1]][0] == 0) ||   
          (dom("w") && fl[1] >= 13)) && 
-            (( (fl[0] < fl[1]) && colour == "b") ||             # restriction to move throw the board end
+            (( (fl[0] < fl[1]) && colour == "b") || 
             ((fl[0] >= 1 && fl[0] <= 12 && fl[1] >= 1 && fl[1] <= 12 && colour = "w") ||
             (fl[0] >= 13 && fl[0] <= 24 && colour = "w" && (fl[1] >= fl[0] && fl[1] <= 24) || (fl[1] >= 1 && fl[1] <= 12)) ||
             dom(colour))) 
@@ -247,7 +243,6 @@ class Game < ActiveRecord::Base
   def flash_from(colour)
     flash = get_new_condition(colour)
     from_to_points = self.from_to_points(colour)
-    # return from_to_points
     if dom(colour)
       from_to_points = dom_from_points(from_to_points, colour)      
     end  
@@ -322,14 +317,13 @@ class Game < ActiveRecord::Base
     moves = moves_left
     out_moves = []
     last_point_move = []
-# return moves[0]
     moves.each do |move|
       point_id = point_from + move              
       if point_id > 24
         point_id = point_id - 24
       end   
       if !(condition[point_id] && ((condition[point_from][1] == condition[point_id][1]) || 
-            (condition[point_id][0] == 0))) && !dom(colour)     # dom added. need testing
+            (condition[point_id][0] == 0))) && !dom(colour)  
         wrong_points << move
       end
       
@@ -339,19 +333,13 @@ class Game < ActiveRecord::Base
         out_moves << move
       end  
     end
-    # return out_moves
-    new_moves = correct_moves(moves, wrong_points)  # forbidden jump throw occupant points
+    new_moves = correct_moves(moves, wrong_points)
     out_board_moves = false 
     if last_point_move.count > 0
       out_board_moves = true
     elsif out_moves.count > 0 && no_inner_moves(out_moves, new_moves) 
       out_board_moves = true
     end
-    
-    # if out_moves.count > 0 && out_moves.count < new_moves.count
-      # clean_moves = delete_elements(new_moves, out_moves)
-      # out_board_moves = false
-    # end
     
     new_moves.each do |m|
       point_id = point_from + m              
@@ -363,14 +351,8 @@ class Game < ActiveRecord::Base
             ((point_from + m <= 24 && colour == "b") ||             # restriction to move throw the board end
             ( (point_from - 12.5) < 0 && (point_from + m - 12.5) < 0    && colour == "w") ||
             ( (point_from - 12.5) > 0 && (point_from + m - 12.5) > 0    && colour == "w")) 
-            ## dom or no dom
         condition[point_id][2] = 't' 
-      # elsif dom(colour) && ((point_id >= 1 && point_id <= 6 && colour == "b") || (point_id >= 13 && point_id <= 18 && colour == "w"))
-        # out_moves << m
       end  
-      # elsif dom(colour) && ((point_id >= 1 && point_id <= 6 && colour == "b") || (point_id >= 13 && point_id <= 18 && colour == "w"))
-        # out_board_moves = true
-      # end     
       
     end
     condition[point_from][2] = 'f'
@@ -465,7 +447,6 @@ class Game < ActiveRecord::Base
   def no_moves(colour)
     flash_from = self.flash_from(colour)
     no_moves = true
-    # get_moves.count
     1.upto(24) do |k|
       if flash_from[k][2] == "f" && flash_from[k][0] > 0
         no_moves = false
@@ -515,7 +496,4 @@ class Game < ActiveRecord::Base
       return true
     end
   end
-  
-
-  
 end

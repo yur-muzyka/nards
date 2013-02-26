@@ -1,0 +1,14 @@
+= link_to "Back to Lobby", :root, :class => "room2_button round"
+%br/
+%br/
+%br/
+%br/
+%br/
+%hr/
+%section.round
+  = render :partial => 'room/new_reject_game'
+%hr{:size => "4"}/
+%section.round
+  #created_area
+    / 
+= render 'chat/chat_form.html.haml'

@@ -5,7 +5,6 @@ class UsersController < ApplicationController
     redirect_to :root
   end
 
-
   # GET /users/new
   # GET /users/new.json
   def new
@@ -20,7 +19,6 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
- 
     respond_to do |format|
       if @user.save
         format.html { redirect_to(:users, :notice => 'Registration successfull.') }
@@ -31,5 +29,4 @@ class UsersController < ApplicationController
       end
     end
   end
-
 end

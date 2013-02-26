@@ -1,0 +1,24 @@
+<center><% if @status == "game_over"
+case @winner
+when true %>
+   <b><font color=white size=6>You win</font>
+    <font size=4><%= link_to 'return', url_for({:controller => 'game', :action => 'leave_game'}) %></font></b>
+<% when false %>
+   <b><font color=white size=6>You lose</font>
+    <font size=4><%= link_to 'return', url_for({:controller => 'game', :action => 'leave_game'}) %></font></b>
+<% end %>
+
+<% elsif @turn == @user_id %>
+    <font color=white size=4>your turn<br></font>
+<%= image_tag("/images/d#{@dice.to_s[0]}.png") %>
+<%= image_tag("/images/d#{@dice.to_s[1]}.png") %>
+
+<font color=white size=4><div id="sample_countdown"></div></font>
+<% elsif @turn != @user_id %>
+    <font color=white size=4>opponent move</font>
+<%= image_tag("/images/clock.gif") %>
+<%= image_tag("/images/d#{@dice.to_s[0]}.png") %>
+<%= image_tag("/images/d#{@dice.to_s[1]}.png") %>
+<font color=white size=4><div id="sample_countdown"></div></font>
+<% end %>
+</center>
