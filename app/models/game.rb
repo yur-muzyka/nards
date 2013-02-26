@@ -232,7 +232,7 @@ class Game < ActiveRecord::Base
          (dom("w") && fl[1] >= 13)) && 
             (( (fl[0] < fl[1]) && colour == "b") || 
             ((fl[0] >= 1 && fl[0] <= 12 && fl[1] >= 1 && fl[1] <= 12 && colour = "w") ||
-            (fl[0] >= 13 && fl[0] <= 24 && colour = "w" && (fl[1] >= fl[0] && fl[1] <= 24) || (fl[1] >= 1 && fl[1] <= 12)) ||
+            ((fl[0] >= 13 && fl[0] <= 24 && colour = "w") && ((fl[1] >= 13 && fl[1] <= 24) || (fl[1] >= 1 && fl[1] <= 12))) ||
             dom(colour))) 
         flash << fl
       end
