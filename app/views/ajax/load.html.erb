@@ -2,7 +2,7 @@
     <%= render :partial => 'chat/online' %>
 <% end %>
 
-<% if params[:messages] && @chat_message.length > 0 %>
+<% if params[:messages] %>
     <%= render :partial => 'chat/messages' %>
 <% end %>
 
@@ -11,11 +11,11 @@
     created_games.append("<%= escape_javascript(render :partial => 'room/created_games') %>");
 <% end %>
 
-<% if params[:new_reject_game]%>
-    var created_games = $("#new_reject_area").empty();
-    created_games.append("<%= escape_javascript(render :partial => 'room/new_reject_game') %>");
-<% end %>
-
 <% if params[:reload] && current_user.game && current_user.game.status == "in_progress" %>
     location.reload();
+<% end %>
+
+<% if params[:game] %>
+    var game = $("#game_area").empty();
+    game.append("<%= escape_javascript(render :partial => 'game/gameboard') %>");
 <% end %>

@@ -2,24 +2,56 @@ class GameController < ApplicationController
   before_filter :from_game_redirect
 
   def index
-   
-    if current_user
-
-      current_user.location_id = 4
-      current_user.save
-      @room1 = Location.find(1)
-      @room2 = Location.find(2)
-      @room3 = Location.find(3)
-
-      @ajax_options = ['messages', 'online']
-      render :layout => 'main', :template => 'game/logged'
-    end
+    current_user.location_id = 5
+    current_user.save 
+      
+    @ajax_options = ['messages', 'online', 'game']
+    
+    # @one = current_user.game.from_to_points("w")
+    # if current_user.game.status == "game_over"
+      # render :layout => false, :text => "lol"
+    # else
+      render :layout => 'main'
+    # end
   end
 
+  def move
+    current_user.game.add_move(params[:id])
+    #change turn
+    
+    current_user.game.change_turn_check(current_user.player_colour, current_user.id)
+
+
+
+
+    render :layout => false
+  end
+    
+  def out_board
+    move = current_user.game.move_ident(current_user.player_colour)
+    current_user.game.add_move(move + 90)
+    current_user.game.change_turn_check(current_user.player_colour, current_user.id)
+    
+
+    
+    
+    
+    render :layout => false
+  end
+  
+  def leave_game
+    current_user.game = nil
+    current_user.save
+    redirect_to :back
+    
+    
+  end
+    
+  
   private
   def from_game_redirect
-          if !current_user || !current_user.game || 
-        current_user.game.status != "in_progress"
+    if !current_user || !current_user.game || current_user.game.status != "in_progress" &&
+      current_user.game.status != "game_over"
       redirect_to :root
     end
   end

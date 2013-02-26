@@ -11,22 +11,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130212133342) do
+ActiveRecord::Schema.define(:version => 20130224203323) do
 
   create_table "chats", :force => true do |t|
     t.integer  "user_id"
     t.string   "text"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "location_id"
   end
 
   add_index "chats", ["user_id"], :name => "index_chats_on_user_id"
 
   create_table "games", :force => true do |t|
     t.integer  "timeout"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "status"
+    t.string   "move"
+    t.string   "condition"
+    t.integer  "dice"
+    t.integer  "first_move_id"
+    t.integer  "turn_user_id"
+    t.integer  "move_count"
+    t.datetime "last_move"
+    t.integer  "location_id"
   end
 
   create_table "locations", :force => true do |t|
@@ -46,11 +55,12 @@ ActiveRecord::Schema.define(:version => 20130212133342) do
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.datetime "last_visit"
     t.integer  "location_id"
     t.integer  "game_id"
+    t.integer  "rating",            :default => 0
   end
 
 end

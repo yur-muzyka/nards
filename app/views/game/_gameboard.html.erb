@@ -1,0 +1,118 @@
+<script language = "javascript">
+function start_countdown() {
+    var block = document.getElementById('sample_countdown');
+    simple_timer(<%= @time_left %>, block);
+}
+start_countdown()
+</script>
+<table id="Table_01" width="801" height="560" border="0" cellpadding="0" cellspacing="0" background= "images/board.jpg">
+    <tr>
+        <td rowspan="3">
+            <img src="/images/blank.png" width="42" height="280" alt=""></td>
+            
+        <% if @colour == "b"%>
+            <% from = 12; to = 7 %>
+        <% else %>
+            <% from = 24; to = 19 %>
+        <% end %>
+        <% from.downto(to) do |k| %>
+                <td rowspan="3"> <% if @condition[k][2] == "t" || (@condition[k][2] == "f" && @condition[k][0] != 0) %>
+                        <%= link_to image_tag("/images/#{@condition[k][0]}#{@condition[k][1]}u#{@condition[k][2]}.png", :width => 52, :height => 280), 
+                            url_for({:controller => 'game', :action => 'move', :id => k}), :remote => true %>
+                    <% elsif @condition[k][0] == 0 %>
+                        <%= image_tag("/images/blank.png", :width => 52, :height => 280) %>
+                    <% else %>
+                        <%= image_tag("/images/#{@condition[k][0]}#{@condition[k][1]}u#{@condition[k][2]}.png", :width => 52, :height => 280) %>
+                    <% end %>
+                </td>
+            <% end %>  
+
+        <td><img src="/images/blank.png" width="83" height="187" alt=""></td>
+ 
+        <% if @colour == "b"%>
+            <% from = 6; to = 1 %>
+        <% else %>
+            <% from = 18; to = 13 %>
+        <% end %>
+        <% from.downto(to) do |k| %>
+                <td rowspan="3"> <% if @condition[k][2] == "t" || (@condition[k][2] == "f" && @condition[k][0] != 0) %>
+                        <%= link_to image_tag("/images/#{@condition[k][0]}#{@condition[k][1]}u#{@condition[k][2]}.png", :width => 54, :height => 280), 
+                            url_for({:controller => 'game', :action => 'move', :id => k}), :remote => true %>
+                    <% elsif @condition[k][0] == 0 %>
+                        <%= image_tag("/images/blank.png", :width => 54, :height => 280) %>
+                    <% else %>
+                        <%= image_tag("/images/#{@condition[k][0]}#{@condition[k][1]}u#{@condition[k][2]}.png", :width => 54, :height => 280) %>
+                    <% end %>
+                </td>
+            <% end %>  
+ 
+        <td rowspan="2">
+            <% if @colour == "b" %>
+                <%= image_tag("/images/#{@condition[26][0]}w.png", :width => 38, :height => 254) %>
+            <% else %>
+                <%= image_tag("/images/#{@condition[25][0]}b.png", :width => 38, :height => 254) %>
+            <% end %>
+            
+        </td>
+        <td><img src="/images/blank.png" width="1" height="187" alt=""></td>
+    </tr>
+    <tr>
+        <td rowspan="3">
+            <%= render :partial => 'game/noutice' %>
+            </td>
+            
+        </td>
+        <td><img src="/images/blank.png" width="1" height="67" alt=""></td>
+    </tr>
+    <tr>
+        <td rowspan="3">
+            <% if @colour == "b" %>
+                <%= image_tag("/images/#{@condition[25][0]}b.png", :width => 38, :height => 254) %>
+            <% else %>
+                <%= image_tag("/images/#{@condition[26][0]}w.png", :width => 38, :height => 254) %>
+            <% end %>
+        <td>
+            <img src="/images/blank.png" width="1" height="26" alt=""></td>
+    </tr>
+    <tr>       
+        <td rowspan="3"><img src="/images/blank.png" width="42" height="280" alt=""></td>
+        
+        <% if @colour == "b"%>
+            <% from = 13; to = 24 %>
+        <% else %>
+            <% from = 1; to = 12 %>
+        <% end %>
+        <% from.upto(to) do |k| %>
+                <td rowspan="3"> <% if @condition[k][2] == "t" || (@condition[k][2] == "f" && @condition[k][0] != 0) %>
+                        <%= link_to image_tag("/images/#{@condition[k][0]}#{@condition[k][1]}d#{@condition[k][2]}.png", :width => 52, :height => 280), 
+                            url_for({:controller => 'game', :action => 'move', :id => k}), :remote => true %>
+                    <% elsif @condition[k][0] == 0 %>
+                        <%= image_tag("/images/blank.png", :width => 52, :height => 280) %>
+                    <% else %>
+                        <%= image_tag("/images/#{@condition[k][0]}#{@condition[k][1]}d#{@condition[k][2]}.png", :width => 52, :height => 280) %>
+                    <% end %>
+                </td>
+            <% end %>  
+
+
+        <td><img src="/images/blank.png" width="1" height="93" alt=""></td>
+    </tr>
+    <tr>
+        <td rowspan="2">
+            <img src="/images/blank.png" width="83" height="187" alt=""></td>
+        <td>
+            <img src="/images/blank.png" width="1" height="135" alt=""></td>
+    </tr>
+    <tr>
+        <td>
+            <% if @out_board_moves %>
+               <%= link_to image_tag("/images/out_board.png", :width => 38, :height => 52), 
+                   url_for({:controller => 'game', :action => 'out_board'}), :remote => true %>
+            <% elsif %>
+                <img src="/images/blank.png" width="38" height="52" alt="">
+            <% end %>
+        </td>
+        <td>
+            <img src="/images/blank.png" width="1" height="52" alt=""></td>
+    </tr>
+</table>

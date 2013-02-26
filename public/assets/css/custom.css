@@ -1,5 +1,11 @@
 body {
-  background: #cff;
+    background: #FCFCFC url('../images/body.jpg');
+    font: normal 13px Verdana,sans-serif;
+    color: #345;
+    padding-bottom: 1em;
+}
+go {
+    color: #000;
 }
 
 section {
@@ -80,6 +86,7 @@ a.room3_button {
   position: absolute;
   right: 5%;
 }
+
 .text_field {
 	width:90%;
 	height:30px;
