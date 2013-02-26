@@ -1,0 +1,11 @@
+%html
+  %head
+    = javascript_include_tag :application
+    = csrf_meta_tag
+    %title LoginApp
+    %link{:href => "/assets/css/custom.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}/
+  %body
+    = render :partial => 'ajax/ajax.js'
+    = yield
+    #reload_area
+      /

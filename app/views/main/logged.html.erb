@@ -5,4 +5,4 @@
 <%= link_to "#{@room2.name} (#{@room1.online(2)})", room_path(2), :class => "room2_button round" %>
 <%= link_to "#{@room3.name} (#{@room1.online(3)})", room_path(3), :class => "room3_button round" %>
 
-	<%= render 'chat/chat_form' %>
+	<%= render 'chat/chat_form.html.haml' %>

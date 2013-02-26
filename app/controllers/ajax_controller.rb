@@ -61,7 +61,7 @@ class AjaxController < ApplicationController
     @created_games = []
     @all_games = Game.find(:all, :conditions => ['location_id = ?', current_user.location_id])
     @all_games.each do |game|
-      if game.users.length == 1
+      if game.users.length == 1 && game.status != 'game_over'
         @created_games << game
       end
     end 
