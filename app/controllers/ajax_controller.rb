@@ -42,10 +42,10 @@ class AjaxController < ApplicationController
         if current_user.game.no_moves(current_user.player_colour)
           current_user.game.change_turn(current_user.player_colour, current_user.id)
         end
-        if current_user.game.time_left <= 0 || @condition[25][0] >= 15 || @condition[26][0] >= 15
-          current_user.game.make_rating
-          current_user.game.game_over
-        end
+      end
+      if current_user.game.time_left <= 0 || @condition[25][0] >= 15 || @condition[26][0] >= 15
+        current_user.game.make_rating
+        current_user.game.game_over
       end
     end  
     
