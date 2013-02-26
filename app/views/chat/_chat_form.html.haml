@@ -1,0 +1,15 @@
+%script{:src => "/assets/js/jquery.js", :type => "text/javascript"}
+%script{:src => "/assets/js/chat.js", :type => "text/javascript"}
+#messages.round
+  .chat
+    .layer
+      #chat_area
+        / 
+#line.round
+  = form_for :chat, :html => {:id => 'send_form'}, :url => {:controller => :chat, :action => :save }, :remote => true do |f|
+    = f.text_field(:text, :class => "text_field round")
+    = f.submit(:class => 'button round')
+#online.round
+  .layer
+    #online_area
+      /

@@ -1,8 +1,15 @@
 - if params[:online] && @online_users.length > 0
   var online = $("#online_area").empty();
-  online.append("#{escape_javascript(render :partial => 'chat/online')}");
+  online.append("#{escape_javascript(render :partial => 'chat/online.html.haml')}");
 - if params[:messages]
-  = render :partial => 'chat/messages'
+
+  - if @chat_message && @chat_message.count > 0
+    - @last_id = @chat_message.last[:id]
+    - @location_id = @chat_message.last[:location_id]
+  last_message_id = #{@last_id}; location_id = #{@location_id};
+  var chat = $("#chat_area");
+  - if @chat_message && @chat_message.count > 0
+    chat.append("#{escape_javascript(render :partial => 'chat/messages')}");
 - if params[:created_games]
   var created_games = $("#created_area").empty();
   created_games.append("#{escape_javascript(render :partial => 'room/created_games.html.haml')}");
@@ -10,4 +17,4 @@
   location.reload();
 - if params[:game]
   var game = $("#game_area").empty();
-  game.append("#{escape_javascript(render :partial => 'game/gameboard')}");
+  game.append("#{escape_javascript(render :partial => 'game/gameboard.html.erb')}");
