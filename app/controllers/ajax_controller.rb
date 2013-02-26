@@ -43,7 +43,8 @@ class AjaxController < ApplicationController
           current_user.game.change_turn(current_user.player_colour, current_user.id)
         end
       end
-      if current_user.game.time_left <= 0 || @condition[25][0] >= 15 || @condition[26][0] >= 15
+      if (current_user.game.time_left <= 0 || @condition[25][0] >= 15 || @condition[26][0] >= 15) &&
+          current_user.game.status != "game_over" 
         current_user.game.make_rating
         current_user.game.game_over
       end
