@@ -1,6 +1,8 @@
 class RoomController < RedirectController
     def index
+      
       @ajax_options = ['messages', 'online', 'reload', 'created_games']
+
 
       
       @id = params[:id]

@@ -29,6 +29,7 @@ class AjaxController < ApplicationController
       @user_id = current_user.id
       @winner = current_user.game.winner(current_user.id, current_user.player_colour)
       @dice = current_user.game.dice
+      @colour = current_user.player_colour
       if current_user.game.status == "game_over" || current_user.game.turn_user_id != current_user.id
         @condition = current_user.game.get_condition
       else

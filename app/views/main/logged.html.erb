@@ -1,5 +1,8 @@
-<%= link_to @room1.name, room_path(1), :class => "room1_button round" %>
-<%= link_to @room2.name, room_path(2), :class => "room2_button round" %>
-<%= link_to @room3.name, room_path(3), :class => "room3_button round" %>
+<b><%= render :partial => 'users/login' %></b>
+      <br><br>
+
+<%= link_to "#{@room1.name} (#{@room1.online(1)})", room_path(1), :class => "room1_button round" %>
+<%= link_to "#{@room2.name} (#{@room1.online(2)})", room_path(2), :class => "room2_button round" %>
+<%= link_to "#{@room3.name} (#{@room1.online(3)})", room_path(3), :class => "room3_button round" %>
 
 	<%= render 'chat/chat_form' %>

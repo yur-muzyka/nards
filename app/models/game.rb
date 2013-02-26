@@ -234,10 +234,10 @@ class Game < ActiveRecord::Base
     flash_array.each_with_index do |fl, index|
       if condition[fl[1]] && ((condition[fl[1]][1] == colour) || (condition[fl[1]][0] == 0) ||    # test string -> testing..
          (dom("w") && fl[1] >= 13)) && 
-            (((fl[0] < fl[1]) && colour == "b") ||             # restriction to move throw the board end
-            ( (fl[0] - 12.5) < 0 && (fl[1] - 12.5) < 0    && colour == "w") ||
-            ( (fl[0] - 12.5) > 0 && (fl[1] - 12.5) > 0    && colour == "w") ||
-            dom(colour)) 
+            (( (fl[0] < fl[1]) && colour == "b") ||             # restriction to move throw the board end
+            ((fl[0] >= 1 && fl[0] <= 12 && fl[1] >= 1 && fl[1] <= 12 && colour = "w") ||
+            (fl[0] >= 13 && fl[0] <= 24 && colour = "w" && (fl[1] >= fl[0] && fl[1] <= 24) || (fl[1] >= 1 && fl[1] <= 12)) ||
+            dom(colour))) 
         flash << fl
       end
     end

@@ -7,7 +7,7 @@ class GameController < ApplicationController
       
     @ajax_options = ['messages', 'online', 'game']
     
-    # @one = current_user.game.make_rating.username
+    # @one = current_user.game.from_to_points("w")
     # if current_user.game.status == "game_over"
       # render :layout => false, :text => "lol"
     # else

@@ -16,7 +16,7 @@ function simple_timer(sec, block, direction) {
     var seconds = time;
     if ( seconds < 10 ) seconds = '0'+seconds;
  
-    block.innerHTML = hour+':'+minutes+':'+seconds;
+    block.innerHTML = minutes+':'+seconds;
  
     if ( direction ) {
         sec++;
