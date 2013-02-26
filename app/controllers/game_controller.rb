@@ -2,8 +2,6 @@ class GameController < ApplicationController
   before_filter :from_game_redirect
 
   def index
-    @one = current_user.game.from_to_points("w")
-    
     current_user.location_id = 5
     current_user.save 
     @ajax_options = ['messages', 'online', 'game']
